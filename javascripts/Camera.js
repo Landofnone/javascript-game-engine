@@ -1,5 +1,5 @@
 // Camera
-function Camera(view, mapSize, input) {
+function Camera(view, map, input) {
   this.frequency = 6;
   this.cameraSpeed = 1;
 
@@ -8,10 +8,11 @@ function Camera(view, mapSize, input) {
     y: view.y,
     w: view.width,
     h: view.height
-  }
+  };
   
-  this.mapSize = mapSize;
+  this.map = map;
   this.input = input;
+
   this.respondToInput();
 }
 
@@ -41,8 +42,9 @@ Camera.prototype.moveView = function(dx, dy) {
 }
 
 Camera.prototype.checkBounds = function () {
+	
 	this.checkLeftBounds();
-	this.checkRightBounds();
+	//this.checkRightBounds();
 	this.checkTopBounds();
 	this.checkBottomBounds();
 }
@@ -52,7 +54,7 @@ Camera.prototype.checkLeftBounds = function() {
 }
 
 Camera.prototype.checkRightBounds = function() {
-  this.view.x = Math.min(this.view.x, this.mapSize.width - this.view.w);	
+  this.view.x = Math.min(this.view.x, this.map.size.width - this.view.w);	
 }
 
 Camera.prototype.checkTopBounds = function() {
@@ -60,5 +62,5 @@ Camera.prototype.checkTopBounds = function() {
 }
 
 Camera.prototype.checkBottomBounds = function() {
-  this.view.y = Math.min(this.view.y, this.mapSize.height - this.view.h);
+  this.view.y = Math.min(this.view.y, this.map.size.height - this.view.h);
 }

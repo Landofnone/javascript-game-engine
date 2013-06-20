@@ -11,18 +11,12 @@ function AssetManager(imageURL, tileSize, tileBorderSize) {
 
 AssetManager.prototype.loadAssets = function() {
   // Tiles
-  this.tiles = this.loadTiles();
-  this.tileData = new TileData(this.tileSize, this.tiles, this.image);
+  this.tileData = this.loadTiles();
+  this.tiles = new Tiles(this.tileSize, this.tileData, this.image);
   
   // Map
-  this.map = this.loadMap();
-  this.mapData = new MapData(this.map);
-
-  // Map Size
-  this.mapSize = {
-    width: this.mapData.width  * this.tileData.size,
-    height: this.mapData.height * this.tileData.size
-  } 
+  this.mapData = this.loadMap();
+  this.map = new Map(this.mapData, this.tileSize);
 }
 
 AssetManager.prototype.loadImage = function() {

@@ -42,14 +42,14 @@ Game.prototype.start = function () {
       width: this.display.canvas.width,
       height: this.display.canvas.height
     },
-    this.assetManager.mapSize,
+    this.assetManager.map,
     this.input
   );
 
   // Map Renderer
   this.mapRenderer = new MapRenderer(
-    this.assetManager.mapData, 
-    this.assetManager.tileData, 
+    this.assetManager.map, 
+    this.assetManager.tiles, 
     this.camera.view, 
     this.display.context
   );

@@ -1,7 +1,7 @@
 // MapRenderer
-function MapRenderer(mapData, tileData, view, context) {
-  this.mapData  = mapData   || null;
-  this.tileData = tileData  || null;
+function MapRenderer(map, tiles, view, context) {
+  this.map  = map   || null;
+  this.tiles = tiles  || null;
   this.view     = view      || null;
   this.context  = context   || null;
 }
@@ -15,42 +15,49 @@ MapRenderer.prototype.render = function(context) {
   }
 }
 
-MapRenderer.prototype.startRow = function() {
-  return Math.max(Math.floor(this.view.y / this.tileData.size), 0);
-}
 
-MapRenderer.prototype.endRow = function() {
-  return Math.min(Math.floor((this.view.y + this.view.h) / this.tileData.size) + 1, this.mapData.height);
-}
 
-MapRenderer.prototype.startColumn = function() {
-  return Math.max(Math.floor(this.view.x / this.tileData.size), 0);
-}
-
-MapRenderer.prototype.endColumn = function() {
-  var temp = Math.floor((this.view.x + this.view.w) / this.tileData.size) + 1; // find the xth column based on the current view location
-  return Math.min(temp, this.mapData.width);
-}
+//
+// Helpers (could be private)
+//
 
 MapRenderer.prototype.renderTileAt = function(row, column) {
 
   // Get the right tile at x, y
-  var tile = this.mapData.getTileAt(row, column);
-  tile = this.tileData.getTile(tile);
+  var tile = this.map.getDataAt(row, column);
+  tile = this.tiles.getTile(tile);
     
-  // image, clipping coordinates, canvas coordinates
+  // image, clipping coordinates and size, canvas coordinates and size
   this.context.drawImage(
-    this.tileData.image,
+    this.tiles.image,
 
     tile.x, 
     tile.y, 
-    this.tileData.size, 
-    this.tileData.size, 
+    this.tiles.size, 
+    this.tiles.size, 
 
-    (column * this.tileData.size) - Math.floor(this.view.x), 
-    (row * this.tileData.size) - Math.floor(this.view.y), 
-    this.tileData.size, 
-    this.tileData.size
+    (column * this.tiles.size) - Math.floor(this.view.x), 
+    (row * this.tiles.size) - Math.floor(this.view.y), 
+    this.tiles.size, 
+    this.tiles.size
   );
-  
+
+}
+
+MapRenderer.prototype.startRow = function() {
+  return Math.max(Math.floor(this.view.y / this.tiles.size), 0);
+}
+
+MapRenderer.prototype.endRow = function() {
+  return Math.min(Math.floor((this.view.y + this.view.h) / this.tiles.size) + 1, this.map.rows);
+}
+
+MapRenderer.prototype.startColumn = function() {
+  return Math.max(Math.floor(this.view.x / this.tiles.size), 0);
+}
+
+MapRenderer.prototype.endColumn = function() {
+	// find the xth column based on the current view location
+  var temp = Math.floor((this.view.x + this.view.w) / this.tiles.size) + 1;
+  return Math.min(temp, this.map.columns);
 }
