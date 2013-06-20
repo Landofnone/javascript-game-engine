@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>JS / Canvas Game Engine</title>  
+  <link rel="stylesheet" type="text/css" href="stylesheets/base.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="640" height="480">
+    <p>Sorry, this demo only works in browsers that support the canvas element.</p>
+  </canvas>
+  
+  <script type="text/javascript" src="javascripts/TileData.js"></script>
+  <script type="text/javascript" src="javascripts/MapData.js"></script>
+  <script type="text/javascript" src="javascripts/MapRenderer.js"></script>
+  <script type="text/javascript" src="javascripts/FrameRateMonitor.js"></script>
+  <script type="text/javascript" src="javascripts/Display.js"></script>
+  <script type="text/javascript" src="javascripts/Camera.js"></script>
+  <script type="text/javascript" src="javascripts/Input.js"></script>
+  <script type="text/javascript" src="javascripts/AssetManager.js"></script>
+  <script type="text/javascript" src="javascripts/Game.js"></script>
+  
+  <script>
+    var game = new Game("canvas");
+  </script>
+</body>
+
+</html>
