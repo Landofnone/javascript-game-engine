@@ -14,6 +14,6 @@ Display.prototype.clear = function() {
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }
 
-Display.prototype.displayText = function(text, x, y) {
-  this.context.fillText(text, x, y);
+Display.prototype.displayTextAtPosition = function(text, position) {
+  this.context.fillText(text, position.x, position.y);
 }

@@ -1,38 +1,41 @@
 // input
 function Input() {
-  this.input = {
+	
+	// Track the current state of each control
+  this.controlsActive = {
     up: false,
     down: false,
     left: false,
     right: false
   };
+
+	this.keys = {
+    38: "up",
+    40: "down",
+    37: "left",
+    39: "right"
+  }
   
   this.listeners = {
     keydown: {
       eventName: "keydown",
-      isDown: true
+      isActive: true
     },
     keyup: {
       eventName: "keyup",
-      isDown: false
+      isActive: false
     }
   };
   
   this.addKeyboardListeners();
 }
 
-Input.prototype.checkKeyboardInput = function(evt, isDown) {
-  var keyPressed = evt.keyCode;
-  
-  var keys = {
-    38: "up",
-    40: "down",
-    37: "left",
-    39: "right"
-  }
-
-  var key = keys[keyPressed]
-  if (key) { this.input[key] = isDown; }
+Input.prototype.checkKeyboardInput = function(evt, isActive) {
+	// Look up our key
+  var key = this.keys[evt.keyCode]
+	
+	// If this is a key we're monitoring, set it's active state
+  if (key) { this.controlsActive[key] = isActive; }
 }
 
 Input.prototype.addKeyboardListeners = function() {      
@@ -40,9 +43,9 @@ Input.prototype.addKeyboardListeners = function() {
   for (listener in this.listeners) {
     document.addEventListener(
       this.listeners[listener].eventName, 
-      (function(self, isDown) {
-        return function(evt) { self.checkKeyboardInput(evt, isDown); }
-      })(this, this.listeners[listener].isDown),
+      (function(self, isActive) {
+        return function(evt) { self.checkKeyboardInput(evt, isActive); }
+      })(this, this.listeners[listener].isActive),
       false);
   }
 }

@@ -9,7 +9,7 @@ function Game(canvasId) {
   // AssetManager
   this.assetManager = new AssetManager("images/desert_tiles.png", 32, 1);
 
-  // Go time
+  // Go time!
   if (this.display.context !== null) {
     this.assetManager.image.addEventListener(
       'load',
