@@ -5,14 +5,14 @@ function AssetManager(imageURL, tileSize, tileBorderSize) {
   this.tileBorderSize = tileBorderSize || 0;
 
   // Images
-  this.imageURL = imageURL;
+  this.imageURL = imageURL || "";
   this.image = this.loadImage(imageURL);
 }
 
 AssetManager.prototype.loadAssets = function() {
   // Tiles
   this.tileData = this.loadTiles();
-  this.tiles = new Tiles(this.tileSize, this.tileData, this.image);
+  this.tiles = new Tiles(this.tileData, this.tileSize, this.image);
   
   // Map
   this.mapData = this.loadMap();
@@ -44,7 +44,7 @@ AssetManager.prototype.loadTiles = function() {
     tiles.push(tileRow);
   }
 
-  return tiles;      
+  return tiles;
 }
 
 AssetManager.prototype.loadMap = function() {

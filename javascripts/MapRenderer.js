@@ -1,13 +1,12 @@
 // MapRenderer
 function MapRenderer(map, tiles, view, context) {
-  this.map  = map   || null;
-  this.tiles = tiles  || null;
-  this.view     = view      || null;
-  this.context  = context   || null;
+  this.map = map || null;
+  this.tiles = tiles || null;
+  this.view = view || null;
+  this.context = context || null;
 }
 
 MapRenderer.prototype.render = function(context) {
-  // Loop over all the tiles
   for (var row = this.startRow(); row < this.endRow(); ++row) {
     for (var column = this.startColumn(); column < this.endColumn(); ++column) {
       this.renderTileAt(row, column);
@@ -26,7 +25,7 @@ MapRenderer.prototype.renderTileAt = function(row, column) {
   // Get the right tile at x, y
   var tile = this.map.getDataAt(row, column);
   tile = this.tiles.getTile(tile);
-    
+
   // image, clipping coordinates and size, canvas coordinates and size
   this.context.drawImage(
     this.tiles.image,
@@ -41,7 +40,6 @@ MapRenderer.prototype.renderTileAt = function(row, column) {
     this.tiles.size, 
     this.tiles.size
   );
-
 }
 
 MapRenderer.prototype.startRow = function() {
