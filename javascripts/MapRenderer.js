@@ -40,6 +40,7 @@ MapRenderer.prototype.renderTileAt = function(row, column) {
     this.tiles.size, 
     this.tiles.size
   );
+
 }
 
 MapRenderer.prototype.startRow = function() {

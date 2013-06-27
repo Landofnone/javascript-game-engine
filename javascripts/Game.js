@@ -1,15 +1,18 @@
 // Game
 function Game(canvasId) {
-  // Refresh (ms)
   this.refresh = 15;
-
-  // Display
   this.display = new Display(canvasId);
 
-  // AssetManager
+  // This looks like a level description
+  // I should probably make a level class/object to hold the data
   this.assetManager = new AssetManager("images/desert_tiles.png", 32, 1);
 
-  // Go time!
+  // Refactor to assetManager?
+  this.startWhenAssetsAreLoaded();
+}
+
+// Move this to the asset manager or assets
+Game.prototype.startWhenAssetsAreLoaded = function() {
   if (this.display.context !== null) {
     this.assetManager.image.addEventListener(
       'load',
@@ -20,20 +23,15 @@ function Game(canvasId) {
       })(this), 
       false
     );
-  }
+  }  
 }
 
 Game.prototype.start = function () {
   // Load the remaining assets
   this.assetManager.loadAssets();  
-
-  // Input
   this.input = new Input();
-
-  // Monitor
   this.frameRateMonitor = new FrameRateMonitor(this.display);
 
-  // Camera
   // Too tightly coupled
   this.camera = new Camera(
     {
@@ -58,13 +56,8 @@ Game.prototype.start = function () {
 }
 
 Game.prototype.loop = function() {
-  // Reset
   this.display.clear();
-
-  // Render
   this.mapRenderer.render();
-
-  // Render / Update
   this.frameRateMonitor.update();
 
   // Loops
